@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('short-url', [ShortUrlController::class, 'index']);
-Route::post('generate-url', [ShortUrlController::class, 'generateUrl']);
+Route::group(['prefix' => 'url'], function () {
+    Route::get('/short', [ShortUrlController::class, 'index']);
+    Route::post('/generate', [ShortUrlController::class, 'generateUrl']);
 
 
-Route::get('{url}', [ShortUrlController::class, 'shortenUrl']);
+    Route::get('/{url}', [ShortUrlController::class, 'shortenUrl']);
+});

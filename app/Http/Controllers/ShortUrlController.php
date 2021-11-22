@@ -13,4 +13,54 @@ class ShortUrlController extends Controller
      * @var ShortUrlRepository
      */
     private $url;
+
+    /**
+     * ShortUrlController constructor
+     * @param ShortUrlRepository $url
+     */
+    public function __construct(ShortUrlRepository $url)
+    {
+        $this->url = $url;
+    }
+
+    /** Get all generated url
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        return response()->json($this->url->index());
+    }
+
+    /**
+     * Shorten a url
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function generateUrl(Request $request)
+    {
+        $input = $request->all();
+        $validatedData = Validator::make($input, [
+            'link' => 'bail|required|url|unique:short_links'
+        ], [
+            'link.required' => 'Enter a valid url',
+            'link.unique' => 'Link already shortened'
+        ]);
+
+        if ($validatedData->fails()) {
+            $message = $validatedData->messages();
+            return response()->json(['error' => true, 'msg' => $message]);
+        }
+
+        return response()->json($this->url->generateUrl($input));
+    }
+
+    /**
+     * Get information for a shorten url
+     * @param $code
+     * @return JsonResponse
+     */
+    public function shortenUrl($code): jsonResponse
+    {
+        return response()->json($this->url->shortenUrl($code));
+    }
 }

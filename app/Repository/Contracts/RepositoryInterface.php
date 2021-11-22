@@ -11,4 +11,5 @@ interface RepositoryInterface
     public function delete($id);
     public function where($field, $value);
     public function orderBy($field, $order);
+    public function findBy($field, $value);
 }

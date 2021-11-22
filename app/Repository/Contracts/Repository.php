@@ -41,4 +41,9 @@ abstract class Repository implements RepositoryInterface
     {
         return $this->model::orderBy($field, $order);
     }
+
+    public function findBy($field, $value)
+    {
+        return $this->model::where($field, '=', $value)->first();
+    }
 }
