@@ -1,5 +1,6 @@
-<p align="center"> Shorten Url Generator API</p>
 
-## Generate a shorten link
+## Shorten Url Generator API
+
+<p> Generates a shorten url link </p>
 
 
