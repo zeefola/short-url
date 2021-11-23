@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use App\Repository\ShortUrlRepository;
+use App\Http\Resources\ShortUrls;
 
 class ShortUrlController extends Controller
 {
@@ -24,11 +25,11 @@ class ShortUrlController extends Controller
     }
 
     /** Get all generated url
-     * @return JsonResponse
+     * @return ShortUrls
      */
-    public function index(): JsonResponse
+    public function index(): ShortUrls
     {
-        return response()->json($this->url->index());
+        return $this->url->index();
     }
 
     /**
